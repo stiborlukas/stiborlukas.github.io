@@ -1,135 +1,240 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
-<meta charset="UTF-8">
-<title>karaoke</title>
-<style>
-  body {
-    background-color: black;
-    color: white;
-    font-family: monospace;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 20px;
-  }
-  #lyrics {
-    font-size: 24px;
-    white-space: pre;
-    margin-top: 20px;
-    min-height: 50px;
-  }
-  button {
-    font-size: 20px;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <title>Karaoke</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 30px 20px;
+      margin: 0;
+      gap: 20px;
+      line-height: 1.6;
+    }
+
+    #visualizer {
+      width: 90%;
+      max-width: 900px;
+      height: 100px;
+      border: 1px solid #444;
+      background: #111;
+    }
+
+    #lyrics {
+      font-size: 26px;
+      white-space: pre;
+      text-align: center;
+      min-height: 60px;
+      padding: 10px 20px;
+      background: #111;
+      border: 1px solid #444;
+      width: 90%;
+      max-width: 900px;
+    }
+
+    button {
+      font-size: 20px;
+      padding: 12px 28px;
+      cursor: pointer;
+      background: #222;
+      color: white;
+      border: 1px solid #666;
+      font-family: monospace;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #333;
+    }
+
+    button:active {
+      background: #444;
+    }
+
+    /* Responzivita */
+    @media (max-width: 600px) {
+      #lyrics { font-size: 20px; }
+      button { font-size: 18px; padding: 10px 20px; }
+      #visualizer { height: 80px; }
+    }
+  </style>
 </head>
 <body>
 
-<audio id="song" src="song.mp3"></audio>
-<button onclick="startKaraoke()">Play Song & Lyrics</button>
+  <audio id="song" src="song.mp3" crossorigin="anonymous"></audio>
 
-<div id="lyrics"></div>
+  <button onclick="startKaraoke()">Play Song & Lyrics</button>
 
-<script>
-// Full timestamped lyrics (in seconds)
-const lyricsTimed = [
-  {time: 15.57, text: "Every breath you take"},
-  {time: 19.37, text: "And every move you make"},
-  {time: 23.41, text: "Every bond you break"},
-  {time: 25.50, text: "Every step you take"},
-  {time: 27.57, text: "I'll be watching you"},
-  {time: 31.98, text: "Every single day"},
-  {time: 35.97, text: "Every word you say"},
-  {time: 39.88, text: "Every game you play"},
-  {time: 41.09, text: "Every night you stay"},
-  {time: 43.95, text: "I'll be watching you"},
-  {time: 48.25, text: "Oh, can't you see?"},
-  {time: 52.34, text: "You belong to me"},
-  {time: 56.46, text: "How my poor heart aches"},
-  {time: 60.28, text: "With every step you take"},
-  {time: 64.67, text: "Every move you make"},
-  {time: 68.50, text: "And every vow you break"},
-  {time: 72.58, text: "Every smile you fake"},
-  {time: 74.63, text: "Every claim you stake"},
-  {time: 76.63, text: "I'll be watching you"},
-  {time: 78.42, text: "Since you've gone"},
-  {time: 83.78, text: "I've been lost without a trace"},
-  {time: 86.89, text: "I dream at night, I can only see your face"},
-  {time: 90.93, text: "I look around, but it's you I can't replace"},
-  {time: 95.06, text: "I feel so cold and I long for your embrace"},
-  {time: 99.25, text: "I keep crying, baby, baby, please"},
-  {time: 134.16, text: "Oh, can't you see?"},
-  {time: 138.18, text: "You belong to me"},
-  {time: 142.38, text: "How my poor heart aches"},
-  {time: 146.23, text: "With every step you take"},
-  {time: 150.50, text: "Every move you make"},
-  {time: 154.41, text: "And every vow you break"},
-  {time: 158.48, text: "Every smile you fake"},
-  {time: 160.50, text: "Every claim you stake"},
-  {time: 162.49, text: "I'll be watching you"},
-  {time: 166.61, text: "Every move you make"},
-  {time: 168.67, text: "Every step you take"},
-  {time: 170.68, text: "I'll be watching you"},
-  {time: 172.49, text: "I'll be watching you"},
-  {time: 179.22, text: "I'll be watching you"},
-  {time: 181.05, text: "Every breath you take, every move you make"},
-  {time: 185.08, text: "Every bond you break, every step you take"},
-  {time: 187.40, text: "I'll be watching you"},
-  {time: 189.22, text: "Every single day, every word you say"},
-  {time: 193.21, text: "Every game you play, every night you stay"},
-  {time: 195.50, text: "I'll be watching you"},
-  {time: 197.35, text: "Every move you make, every vow you break"},
-  {time: 201.37, text: "Every smile you fake, every claim you stake"},
-  {time: 203.74, text: "I'll be watching you"},
-  {time: 205.57, text: "Every single day, every word you say"},
-  {time: 209.53, text: "Every game you play, every night you stay"},
-  {time: 211.89, text: "I'll be watching you"},
-  {time: 213.76, text: "Every breath you take, every move you make"},
-  {time: 217.74, text: "Every bond you break, every step you take"},
-  {time: 220.09, text: "I'll be watching you"},
-  {time: 221.86, text: "Every single day, every word you say"},
-  {time: 225.96, text: "Every game you play, every night you stay"},
-  {time: 228.31, text: "I'll be watching you"},
-  {time: 230.07, text: "Every move you make, every vow you break"},
-  {time: 234.17, text: "Every smile you fake, every claim you stake"},
-  {time: 236.50, text: "I'll be watching you"},
-  {time: 238.35, text: "Every single day, every word you say"},
-  {time: 242.36, text: "Every game you play, every night you stay"}
-];
+  <canvas id="visualizer"></canvas>
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+  <div id="lyrics"></div>
 
-async function typeLine(text) {
-  const lyricsDiv = document.getElementById("lyrics");
-  let line = "";
-  for (let char of text) {
-    line += char;
-    lyricsDiv.innerHTML = line; // no cat
-    await sleep(90); // slow typing effect
-  }
-  lyricsDiv.innerHTML = line; // ensure final line shows
-}
+  <script>
+    const lyricsTimed = [
+      {time: 15.57, text: "Every breath you take"},
+      {time: 19.37, text: "And every move you make"},
+      {time: 23.41, text: "Every bond you break"},
+      {time: 25.50, text: "Every step you take"},
+      {time: 27.57, text: "I'll be watching you"},
+      {time: 31.98, text: "Every single day"},
+      {time: 35.97, text: "Every word you say"},
+      {time: 39.88, text: "Every game you play"},
+      {time: 41.09, text: "Every night you stay"},
+      {time: 43.95, text: "I'll be watching you"},
+      {time: 48.25, text: "Oh, can't you see?"},
+      {time: 52.34, text: "You belong to me"},
+      {time: 56.46, text: "How my poor heart aches"},
+      {time: 60.28, text: "With every step you take"},
+      {time: 64.67, text: "Every move you make"},
+      {time: 68.50, text: "And every vow you break"},
+      {time: 72.58, text: "Every smile you fake"},
+      {time: 74.63, text: "Every claim you stake"},
+      {time: 76.63, text: "I'll be watching you"},
+      {time: 78.42, text: "Since you've gone"},
+      {time: 83.78, text: "I've been lost without a trace"},
+      {time: 86.89, text: "I dream at night, I can only see your face"},
+      {time: 90.93, text: "I look around, but it's you I can't replace"},
+      {time: 95.06, text: "I feel so cold and I long for your embrace"},
+      {time: 99.25, text: "I keep crying, baby, baby, please"},
+      {time: 134.16, text: "Oh, can't you see?"},
+      {time: 138.18, text: "You belong to me"},
+      {time: 142.38, text: "How my poor heart aches"},
+      {time: 146.23, text: "With every step you take"},
+      {time: 150.50, text: "Every move you make"},
+      {time: 154.41, text: "And every vow you break"},
+      {time: 158.48, text: "Every smile you fake"},
+      {time: 160.50, text: "Every claim you stake"},
+      {time: 162.49, text: "I'll be watching you"},
+      {time: 166.61, text: "Every move you make"},
+      {time: 168.67, text: "Every step you take"},
+      {time: 170.68, text: "I'll be watching you"},
+      {time: 172.49, text: "I'll be watching you"},
+      {time: 179.22, text: "I'll be watching you"},
+      {time: 181.05, text: "Every breath you take, every move you make"},
+      {time: 185.08, text: "Every bond you break, every step you take"},
+      {time: 187.40, text: "I'll be watching you"},
+      {time: 189.22, text: "Every single day, every word you say"},
+      {time: 193.21, text: "Every game you play, every night you stay"},
+      {time: 195.50, text: "I'll be watching you"},
+      {time: 197.35, text: "Every move you make, every vow you break"},
+      {time: 201.37, text: "Every smile you fake, every claim you stake"},
+      {time: 203.74, text: "I'll be watching you"},
+      {time: 205.57, text: "Every single day, every word you say"},
+      {time: 209.53, text: "Every game you play, every night you stay"},
+      {time: 211.89, text: "I'll be watching you"},
+      {time: 213.76, text: "Every breath you take, every move you make"},
+      {time: 217.74, text: "Every bond you break, every step you take"},
+      {time: 220.09, text: "I'll be watching you"},
+      {time: 221.86, text: "Every single day, every word you say"},
+      {time: 225.96, text: "Every game you play, every night you stay"},
+      {time: 228.31, text: "I'll be watching you"},
+      {time: 230.07, text: "Every move you make, every vow you break"},
+      {time: 234.17, text: "Every smile you fake, every claim you stake"},
+      {time: 236.50, text: "I'll be watching you"},
+      {time: 238.35, text: "Every single day, every word you say"},
+      {time: 242.36, text: "Every game you play, every night you stay"}
+    ];
 
-async function startKaraoke() {
-  const song = document.getElementById("song");
-  song.play();
-  for (let i = 0; i < lyricsTimed.length; i++) {
-    const {time, text} = lyricsTimed[i];
-    const now = song.currentTime;
-    if (time > now) {
-      await sleep((time - now) * 1000);
+    function sleep(ms) {
+      return new Promise(r => setTimeout(r, ms));
     }
-    await typeLine(text);
-  }
-}
-</script>
 
+    async function typeLine(text) {
+      const div = document.getElementById("lyrics");
+      let line = "";
+      div.innerHTML = "";
+      for (let char of text) {
+        line += char;
+        div.innerHTML = line + "_"; // Jednoduchý kurzor
+        await sleep(80);
+      }
+      div.innerHTML = line;
+    }
+
+    let audioContext, analyser, source, dataArray, canvasCtx;
+    let setup = false;
+
+    function setupVisualizer() {
+      if (setup) return;
+      const song = document.getElementById("song");
+      const canvas = document.getElementById("visualizer");
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      canvasCtx = canvas.getContext("2d");
+
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      source = audioContext.createMediaElementSource(song);
+      analyser = audioContext.createAnalyser();
+      analyser.fftSize = 512;
+      const bufferLength = analyser.frequencyBinCount;
+      dataArray = new Uint8Array(bufferLength);
+
+      source.connect(analyser);
+      analyser.connect(audioContext.destination);
+
+      setup = true;
+      draw();
+    }
+
+    let barHeights = []; // globálně nad funkcí draw
+
+    function draw() {
+        if (!setup) return;
+        requestAnimationFrame(draw);
+        analyser.getByteFrequencyData(dataArray);
+
+        const canvas = document.getElementById("visualizer");
+        const w = canvas.width, h = canvas.height;
+        canvasCtx.fillStyle = "#111";
+        canvasCtx.fillRect(0, 0, w, h);
+
+        const barWidth = (w / dataArray.length) * 2.5;
+        let x = 0;
+
+        // inicializace barHeights při prvním volání
+        if (barHeights.length === 0) barHeights = new Array(dataArray.length).fill(0);
+
+        for (let i = 0; i < dataArray.length; i++) {
+            // normalizovaná hodnota 0–1
+            const rawHeight = dataArray[i] / 2048;
+
+            // dynamický faktor pro větší "jump" při silném zvuku
+            const jumpFactor = 5.0; 
+            const targetHeight = Math.min(rawHeight * h * 1.0 * jumpFactor, h * 0.8);
+
+            // interpolace pro plynulý nárůst a rychlejší pád
+            if (targetHeight > barHeights[i]) {
+                barHeights[i] += (targetHeight - barHeights[i]) * 0.9; // vzestup
+            } else {
+                barHeights[i] += (targetHeight - barHeights[i]) * 2.0; // rychlý pokles
+            }
+
+            canvasCtx.fillStyle = `rgb(${dataArray[i]}, ${dataArray[i]}, ${dataArray[i]})`;
+            canvasCtx.fillRect(x, h - barHeights[i], barWidth, barHeights[i]);
+            x += barWidth + 1;
+        }
+    }
+
+    async function startKaraoke() {
+      const song = document.getElementById("song");
+      if (!setup) setupVisualizer();
+      if (audioContext.state === "suspended") await audioContext.resume();
+      song.play();
+
+      for (let {time, text} of lyricsTimed) {
+        const now = song.currentTime;
+        if (time > now) await sleep((time - now) * 1000);
+        await typeLine(text);
+      }
+    }
+  </script>
 </body>
 </html>
