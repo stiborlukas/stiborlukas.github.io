@@ -1,0 +1,158 @@
+body {
+    margin: 0;
+    background: #0b0b0f;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+.game-area {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    padding: 20px 0;
+}
+
+.help-text {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    z-index: 2;
+}
+
+.login-card {
+    background: #1a1a1f;
+    padding: 24px;
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    z-index: 2;
+}
+
+.login-card h1 {
+    margin: 0 0 20px;
+    font-size: 1.5rem;
+}
+
+.input-group {
+    margin-bottom: 16px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    background: #2a2a2f;
+    color: #fff;
+}
+
+input:focus {
+    outline: none;
+    border-color: #a100ff;
+}
+
+input[aria-invalid="true"] {
+    border-color: #ff5555;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background: #ff2a6d;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+button:focus {
+    outline: none;
+    border: 2px solid #a100ff;
+}
+
+.active-field {
+    border: 3px solid #a100ff !important;
+    box-shadow: 0 0 8px #a100ff;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.paddle-container {
+    width: 100vw;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.paddle {
+    width: 100px;
+    height: 20px;
+    background: #ff2a6d;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    will-change: transform;
+    z-index: 2;
+}
+
+.char {
+    position: fixed;
+    font-size: 1.2rem;
+    color: #fff;
+    will-change: transform;
+    z-index: 1;
+}
+
+.char.caught {
+    animation: glow 0.3s ease-in-out;
+}
+
+@keyframes glow {
+    0% { text-shadow: 0 0 5px #ff2a6d; }
+    50% { text-shadow: 0 0 10px #ff2a6d, 0 0 20px #ff2a6d; }
+    100% { text-shadow: 0 0 5px #ff2a6d; }
+}
+
+input.blink {
+    animation: blink 0.3s ease-in-out;
+}
+
+@keyframes blink {
+    0% { border-color: #a100ff; }
+    50% { border-color: #ff2a6d; }
+    100% { border-color: #a100ff; }
+}

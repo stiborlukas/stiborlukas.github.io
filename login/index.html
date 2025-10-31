@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-area" id="game-area"></div>
+    <div class="game-container">
+        <div class="help-text">Arrow keys to move and switch fields</div>
+        <div class="login-card">
+            <h1>Enter your credentials</h1>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" readonly aria-label="Email input, use arrow keys to catch characters">
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" readonly aria-label="Password input, use arrow keys to catch characters">
+            </div>
+            <button id="login-btn" disabled aria-label="Login button, enabled when fields are valid">Login</button>
+        </div>
+        <div class="paddle-container">
+            <div class="paddle" id="paddle"></div>
+        </div>
+    </div>
+    <script type="module" src="game.js"></script>
+</body>
+</html>
