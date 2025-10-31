@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    background: linear-gradient(45deg, #000000, #1a1a2e, #16213e);
+    color: #00ff00;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" fill="%2300ff00" opacity="0.3"/><rect x="8" y="8" width="4" height="4" fill="%2300ff00"/></svg>'), auto;
+}
+
+/* Retro CRT effect */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 0, 0.03) 2px,
+        rgba(0, 255, 0, 0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.terminal-window {
+    max-width: 800px;
+    margin: 50px auto;
+    background: #000000;
+    border: 3px solid #00ff00;
+    border-radius: 0;
+    box-shadow: 
+        0 0 20px #00ff00,
+        inset 0 0 20px rgba(0, 255, 0, 0.1);
+    position: relative;
+    animation: flicker 0.15s infinite linear alternate;
+}
+
+@keyframes flicker {
+    0% { opacity: 1; }
+    100% { opacity: 0.95; }
+}
+
+.terminal-header {
+    background: #00ff00;
+    color: #000000;
+    padding: 10px 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.terminal-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.terminal-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.control-btn {
+    width: 20px;
+    height: 20px;
+    background: #ff0000;
+    border: 2px solid #000000;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.control-btn:hover {
+    background: #ff6666;
+    transform: scale(1.1);
+}
+
+.terminal-content {
+    padding: 30px;
+    background: #000000;
+    position: relative;
+}
+
+.ascii-art {
+    color: #00ffff;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 14px; 
+    line-height: 1.2;
+    text-shadow: 0 0 10px #00ffff;
+    white-space: pre; 
+    font-family: "Lucida Console", "Courier New", monospace; 
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch; 
+    max-width: 100%; 
+}
+
+.command-line {
+    color: #ffff00;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.blink {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.directory-section {
+    margin-bottom: 40px;
+    border: 1px solid #333333;
+    padding: 20px;
+    background: rgba(0, 255, 0, 0.05);
+}
+
+.section-title {
+    color: #ff00ff;
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px #ff00ff;
+    border-bottom: 2px solid #ff00ff;
+    padding-bottom: 5px;
+}
+
+.file-list {
+    list-style: none;
+    padding: 0;
+}
+
+.file-item {
+    margin: 8px 0;
+    padding: 8px 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border-left: 4px solid #00ff00;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.file-item:hover {
+    background: rgba(0, 255, 0, 0.1);
+    border-left-color: #ffff00;
+    transform: translateX(10px);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+}
+
+.file-item::before {
+    content: '> ';
+    color: #ffff00;
+    font-weight: bold;
+}
+
+.file-link {
+    color: #00ff00;
+    text-decoration: none;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.file-link:hover {
+    color: #ffff00;
+    text-shadow: 0 0 10px #ffff00;
+}
+
+.file-type {
+    color: #ff00ff;
+    font-size: 14px;
+    opacity: 0.7;
+    margin-left: 10px;
+}
+
+/* Glitch effect for title */
+/* .glitch {
+    position: relative;
+    display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch::before {
+    animation: glitch-1 0.5s infinite;
+    color: #ff0000;
+    z-index: -1;
+}
+
+.glitch::after {
+    animation: glitch-2 0.5s infinite;
+    color: #00ffff;
+    z-index: -2;
+}
+
+@keyframes glitch-1 {
+    0%, 14%, 15%, 49%, 50%, 99%, 100% {
+        transform: translate(0);
+    }
+    15%, 49% {
+        transform: translate(-2px, 2px);
+    }
+}
+
+@keyframes glitch-2 {
+    0%, 20%, 21%, 62%, 63%, 99%, 100% {
+        transform: translate(0);
+    }
+    21%, 62% {
+        transform: translate(2px, -2px);
+    }
+} */
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .terminal-window {
+        margin: 20px;
+        max-width: none;
+    }
+    
+    .terminal-content {
+        padding: 20px;
+    }
+    
+    .ascii-art {
+        font-size: 10px;
+    }
+    
+    .command-line {
+        font-size: 16px;
+    }
+    
+    .section-title {
+        font-size: 20px;
+    }
+    
+    .file-link {
+        font-size: 16px;
+    }
+
+    .terminal-window {
+        margin: 20px;
+        max-width: none;
+    }
+
+    .terminal-content {
+        padding: 20px;
+    }
+
+    .ascii-art {
+        font-size: 8px; /* Significantly reduce font size for mobile */
+        white-space: pre-wrap; 
+        overflow-x: auto; 
+        text-align: left; /* ASCII art usually looks better left-aligned when wrapped/scrolled */
+    }
+
+    /* Hide ASCII art on very small screens if it becomes unreadable */
+    @media (max-width: 480px) {
+        .ascii-art {
+            display: none;
+        }
+    }
+
+    .command-line {
+        font-size: 16px;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    .file-link {
+        font-size: 16px;
+    }
+}
+
+/* Loading animation */
+.loading-bar {
+    width: 100%;
+    height: 4px;
+    background: #333333;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.loading-progress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #00ff00, #ffff00, #00ff00);
+    animation: loading 2s ease-in-out infinite;
+}
+
+@keyframes loading {
+    0% { width: 0%; }
+    50% { width: 100%; }
+    100% { width: 0%; }
+}

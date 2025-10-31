@@ -92,7 +92,7 @@
       div.innerHTML = "";
       for (let char of text) {
         line += char;
-        div.innerHTML = line + "_"; // Jednoduchý kurzor
+        div.innerHTML = line + "_"; 
         await sleep(80);
       }
       div.innerHTML = line;
@@ -123,8 +123,7 @@
       draw();
     }
 
-    let barHeights = []; // globálně nad funkcí draw
-
+    let barHeights = []; 
     function draw() {
         if (!setup) return;
         requestAnimationFrame(draw);

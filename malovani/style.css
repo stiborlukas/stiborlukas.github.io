@@ -1,0 +1,312 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f0f0;
+    overflow: hidden;
+    height: 100vh;
+    display: flex; 
+    flex-direction: column;
+}
+
+/* Title Bar */
+.title-bar {
+    background: #ffffff;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    border-bottom: 1px solid #d1d1d1;
+    font-size: 12px;
+    color: #000;
+}
+
+.title-bar .title {
+    margin-left: 8px;
+    font-weight: 400;
+}
+
+/* Ribbon Container */
+.ribbon {
+    background: #f8f8f8;
+    border-bottom: 1px solid #d1d1d1;
+    padding: 8px 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none; /* Hidden by default */
+    background: #e1e1e1;
+    border: 1px solid #adadad;
+    padding: 6px 10px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    transition: all 0.1s ease;
+}
+.menu-toggle:hover {
+    background: #e5f3ff;
+    border-color: #0078d4;
+}
+.menu-toggle:active {
+    background: #005a9e;
+    color: white;
+}
+
+/* Collapsible Tools Container */
+.collapsible-tools {
+    display: flex; 
+    flex-wrap: wrap;
+    gap: inherit; 
+    align-items: center;
+    width: 100%; 
+}
+
+
+/* Tool Groups */
+.tool-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    border-right: 1px solid #d1d1d1;
+    padding-right: 12px;
+}
+
+.tool-group:last-child {
+    border-right: none;
+}
+
+/* Tool Buttons */
+.tool-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 6px 8px;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    font-size: 11px;
+    color: #333;
+    min-width: 50px;
+    transition: all 0.1s ease;
+}
+
+.tool-btn:hover {
+    background: #e5f3ff;
+    border-color: #cce8ff;
+}
+
+.tool-btn.active {
+    background: #cce8ff;
+    border-color: #99d1ff;
+}
+
+.tool-btn:active {
+    background: #99d1ff;
+}
+
+.tool-btn svg {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 2px;
+}
+
+/* Action Buttons */
+.action-btn {
+    background: #e1e1e1;
+    border: 1px solid #adadad;
+    padding: 4px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 11px;
+    color: #333;
+    font-family: 'Segoe UI', sans-serif;
+    transition: all 0.1s ease;
+}
+
+.action-btn:hover {
+    background: #e5f3ff;
+    border-color: #0078d4;
+}
+
+.action-btn:active {
+    background: #005a9e;
+    color: white;
+}
+
+.action-btn:disabled {
+    background: #f0f0f0;
+    color: #999;
+    border-color: #d1d1d1;
+    cursor: not-allowed;
+}
+
+/* Color Picker */
+.color-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.color-palette {
+    display: grid;
+    grid-template-columns: repeat(10, 20px);
+    gap: 2px;
+}
+
+.color-swatch {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #999;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.color-swatch:hover {
+    transform: scale(1.1);
+    border-color: #333;
+}
+
+.color-swatch.selected {
+    border: 2px solid #0078d4;
+    border-radius: 2px;
+}
+
+.custom-color {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #999;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+/* Size Slider */
+.size-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+}
+
+.size-label {
+    font-size: 11px;
+    color: #333;
+}
+
+.size-slider {
+    width: 80px;
+    height: 4px;
+    background: #ddd;
+    border-radius: 2px;
+    outline: none;
+    appearance: none;
+}
+
+.size-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: #0078d4;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.size-display {
+    font-size: 11px;
+    color: #333;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Canvas Container */
+.canvas-container {
+    flex: 1; 
+    background: #e0e0e0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: auto;
+}
+
+canvas {
+    background: white;
+    border: 1px solid #999;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+    cursor: crosshair;
+    touch-action: none;
+    max-width: 100%; 
+    max-height: 100%;
+}
+
+/* Status Bar */
+.status-bar {
+    background: #f8f8f8;
+    border-top: 1px solid #d1d1d1;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 11px;
+    color: #666;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+    .ribbon {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 8px;
+    }
+    
+    .tool-group {
+        border-right: none;
+        border-bottom: 1px solid #d1d1d1;
+        padding-bottom: 8px;
+        width: 100%;
+    }
+
+    .menu-toggle {
+        display: block;
+        width: auto; 
+        margin-bottom: 8px;
+    }
+
+    .collapsible-tools {
+        display: none; /* Hide tools by default on mobile */
+        flex-direction: column; 
+        align-items: flex-start;
+        gap: 8px; 
+    }
+
+    .ribbon.menu-open .collapsible-tools {
+        display: flex; 
+    }
+    .ribbon.menu-open .tool-group {
+        border-bottom: 1px solid #d1d1d1; 
+        padding-bottom: 8px;
+    }
+    .ribbon.menu-open .tool-group:last-child {
+        border-bottom: none; 
+    }
+
+    /* Adjust ribbon when menu is open to prevent overflow */
+    .ribbon.menu-open {
+        overflow-y: auto;
+        max-height: 100vh; 
+    }
+}
