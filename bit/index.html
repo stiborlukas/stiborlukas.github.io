@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Pixelator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Image Pixelator</h1>
+
+    <div class="controls">
+        <div class="control-group">
+            <label for="imageUpload">Upload Image:</label>
+            <input type="file" id="imageUpload" accept="image/*">
+        </div>
+
+        <div class="control-group">
+            <label for="bitDepthSelect">Bit Depth:</label>
+            <select id="bitDepthSelect">
+                <option value="1">1-bit (Black & White)</option>
+                <option value="8" selected>8-bit (256 Colors)</option>
+            </select>
+        </div>
+
+        <div class="control-group" id="thresholdControls">
+            <label for="thresholdRange">Threshold (for 1-bit):</label>
+            <input type="range" id="thresholdRange" min="0" max="255" value="128">
+            <span id="thresholdValue">128</span>
+        </div>
+
+        <div class="control-group" id="pixelSizeControls">
+            <input type="checkbox" id="enablePixelation">
+            <label for="enablePixelation">Enable Pixelation</label>
+            <label for="pixelSizeRange">Pixel Size:</label>
+            <input type="range" id="pixelSizeRange" min="1" max="50" value="10">
+            <span id="pixelSizeValue">10</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div>
+            <h2>Original</h2>
+            <canvas id="originalCanvas"></canvas>
+        </div>
+        <div>
+            <h2 id="outputTitle">8-Bit</h2>
+            <canvas id="pixelatedCanvas"></canvas>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

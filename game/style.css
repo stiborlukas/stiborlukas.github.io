@@ -1,0 +1,157 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #1a1a1a;
+    overflow: hidden;
+    font-family: monospace;
+    color: #eee;
+}
+canvas {
+    background-color: #000;
+    display: block;
+    border: 2px solid #555;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    border-radius: 8px;
+    margin: 20px; 
+}
+.game-info {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #00FF00;
+    font-family: monospace;
+    font-size: 14px;
+    background: rgba(0,0,0,0.8);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    line-height: 1.4;
+    pointer-events: none;
+}
+.combat-log {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    color: #FFFF00;
+    font-family: monospace;
+    font-size: 12px;
+    background: rgba(0,0,0,0.8);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #333;
+    height: 60px;
+    overflow-y: auto;
+    text-shadow: 0 0 5px #000;
+}
+.status-bar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #00FF00;
+    font-family: monospace;
+    font-size: 16px;
+    background: rgba(0,0,0,0.8);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #333;
+    text-align: right;
+    pointer-events: none; 
+}
+.abilities-bar {
+    position: absolute;
+    top: 155px;
+    color: #00FFFF; 
+    font-family: monospace;
+    font-size: 14px;
+    background: rgba(0,0,0,0.8);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #333;
+    text-align: right;
+    pointer-events: none;
+}
+.abilities-bar .cooldown {
+    color: #FF0000;
+}
+/* Style for game over/victory messages */
+.game-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 40px;
+    border-radius: 10px;
+    text-align: center;
+    font-family: monospace;
+    font-size: 28px; 
+    font-weight: bold;
+    z-index: 100;
+    box-shadow: 0 0 20px rgba(0,0,0,0.7);
+    line-height: 1.5;
+    text-shadow: 2px 2px 4px #000;
+}
+.victory-message {
+    background-color: rgba(46, 229, 46, 0.9); /* Green for victory */
+    color: #fff;
+    border: 2px solid #0f0;
+}
+.defeat-message {
+    background-color: rgba(229, 34, 34, 0.9); /* Red for game over */
+    color: #fff;
+    border: 2px solid #f00;
+}
+.menu-text {
+    font-family: monospace;
+    font-size: 48px;
+    fill: #00FF00;
+    text-shadow: 4px 4px 8px rgba(0,255,0,0.5);
+}
+.button-text {
+    font-family: monospace;
+    font-size: 28px;
+    fill: #FFFFFF;
+    background-color: rgba(0, 100, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.button-text:hover {
+    fill: #FFFF00;
+    background-color: rgba(0, 150, 0, 0.7);
+}
+
+/* Loading Screen Styles */
+#loading-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #00FF00;
+    font-family: monospace;
+    font-size: 36px;
+    z-index: 200; 
+    text-shadow: 0 0 10px rgba(0,255,0,0.7);
+}
+.spinner {
+    border: 8px solid #333;
+    border-top: 8px solid #00FF00;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

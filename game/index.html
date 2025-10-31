@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Roguelike Game - Enhanced with Levels and Menu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2/phaser.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-info">
+        <strong>HOW TO PLAY:</strong><br>
+        • Arrow keys to move<br>
+        • Walk into enemies to attack<br>
+        • Kill all enemies to win!<br><br>
+        <strong>ABILITIES:</strong><br>
+        • H = Heal<br>
+        • F = Fireball<br>
+        • D + Arrow = Dash<br><br>
+        <strong>SYMBOLS:</strong><br>
+        • <span style="color: #00FF00;">@</span> = You (Player)<br>
+        • <span style="color: #FF4444;">E</span> = Basic Enemy<br>
+        • <span style="color: #FF8800;">B</span> = Brute Enemy<br>
+        • <span style="color: #00BBFF;">S</span> = Scout Enemy<br>
+        • <span style="color: #FF00FF;">A</span> = Archer Enemy<br>
+        • <span style="color: #FF0000;">Ø</span> = Boss<br>
+        • <span style="color: #FFFF00;">P</span> = Health Potion<br>
+        • <span style="color: #00FFFF;">W</span> = Sword (Weapon)<br>
+        • <span style="color: #AAEEFF;">X</span> = Armor<br>
+        • <span style="color: #555;">#</span> = Wall<br>
+        • <span style="color: #333;">.</span> = Floor / Cave<br>
+        • <span style="color: #00FFCC;">&gt;</span> = Exit
+    </div>
+    
+    <div class="status-bar">
+        <div id="game-level">Level: 1</div>
+        <div id="player-hp">HP: 5/5</div>
+        <div id="player-atk">ATK: 1-2</div>
+        <div id="player-def">DEF: 0</div>
+        <div id="enemies-left">Enemies: 0/0</div>
+    </div>
+
+    <div class="abilities-bar">
+        <strong>ABILITIES:</strong><br>
+        <div id="ability-heal">Heal (H): Ready</div>
+        <div id="ability-fireball">Fireball (F): Ready</div>
+        <div id="ability-dash">Dash (D): Ready</div>
+    </div>
+    
+    <div class="combat-log" id="combat-log">
+        Welcome to the dungeon! Eliminate all enemies to escape.
+    </div>
+
+    <!-- Loading Screen HTML -->
+    <div id="loading-screen" style="display: none;">
+        <div class="spinner"></div>
+        LOADING...
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
