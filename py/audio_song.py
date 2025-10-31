@@ -8,7 +8,7 @@ import threading
 import os
 
 # ==================== NASTAVENÍ ====================
-SONG_PATH = "../song2.mp3"       # ← TVŮJ SOUBOR
+SONG_PATH = "../karaoke/song2.mp3"       # ← TVŮJ SOUBOR
 WIDTH, HEIGHT = 1000, 600
 FPS = 60
 NUM_BARS = 128                  # ← MŮŽEŠ ZMĚNIT

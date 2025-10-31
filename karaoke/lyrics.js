@@ -1,3 +1,6 @@
+// NOT USED ANYWHERE
+// for future purposes
+
 const lyricsTimed = [
   {time: 15.57, text: "Every breath you take"},
   {time: 19.37, text: "And every move you make"},

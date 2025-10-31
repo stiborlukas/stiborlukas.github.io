@@ -17,7 +17,7 @@ from pydub import AudioSegment
 # -------------------------- CONFIG -----------------------------
 WIDTH, HEIGHT = 1200, 600
 FPS = 60
-AUDIO_FILE = "../song.mp3"          # change if you like
+AUDIO_FILE = "../karaoke/song.mp3"          # change if you like
 BAND_AMPLITUDE = 200
 BAND_THICKNESS = 2
 CHUNK_SIZE = 1024                     # same size as Processing buffer
