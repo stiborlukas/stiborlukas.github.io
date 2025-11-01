@@ -389,5 +389,8 @@ ul {
 }
 
 pre {
-    padding: 0 0 0 40px;
+    padding-left: 40px;
+    overflow-x: auto;
+    white-space: pre;
+    max-width: 100%;
 }
