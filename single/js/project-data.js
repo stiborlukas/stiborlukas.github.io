@@ -200,11 +200,11 @@ Space - Handbrake (drift)</code></pre>
       "Optimization (LOD, Profiler)"
     ],
     images: [
-      "images/racing_game/0.jpg",
-      "images/racing_game/1.jpg",
-      "images/racing_game/2.jpg",
-      "images/racing_game/3.jpg",
-      "images/racing_game/4.jpg"
+      "images/racing_game/0.png",
+      "images/racing_game/1.png",
+      "images/racing_game/2.png",
+      "images/racing_game/3.png",
+      "images/racing_game/4.png"
     ],
     links: {
       download: "?"
