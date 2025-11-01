@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Minesweeper</title>
+		<link rel="stylesheet" href="https://unpkg.com/98.css" />
+		<link rel="stylesheet" href="style.css" />
+		<script src="script.js" defer></script>
+	</head>
+	<body>
+		<div class="window">
+			<div class="title-bar">
+				<div class="title-bar-text">Minesweeper</div>
+				<div class="title-bar-controls">
+					<button aria-label="Close" onclick="window.close()">x</button>
+				</div>
+			</div>
+
+			<div class="window-body">
+				<div class="game-container">
+					<div class="top-bar">
+						<div class="counter" id="mine-counter">010</div>
+						<div class="face happy" id="face"></div>
+						<div class="counter" id="timer">000</div>
+					</div>
+					<div class="grid" id="grid"></div>
+				</div>
+			</div>
+
+			<div class="status-bar">
+				<p>Beginner - 9 x 9, 10 mines</p>
+			</div>
+		</div>
+	</body>
+</html>

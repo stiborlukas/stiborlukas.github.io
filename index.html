@@ -1,17 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>willkommen</title>
-    <link rel="stylesheet" href="style.css">
-    
-</head>
-<body>
-    <div class="cursor"></div>
-    <h1>willkommen</h1>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Lukas Stibor - Portfolio</title>
+		<link rel="stylesheet" href="https://unpkg.com/98.css" />
+		<link rel="stylesheet" href="style.css" />
+		
+	</head>
+	<body>
+		<main>
+			<!-- Desktop Icons -->
+			<div class="icon" id="projects-icon">
+				<img src="img/ie.png" alt="Projects" />
+				<span>Projects</span>
+			</div>
+
+			<div class="icon" id="about-icon">
+				<img src="img/up.png" alt="About" />
+				<span>About Me</span>
+			</div>
+
+			<div class="icon" id="contact-icon">
+				<img
+					src="https://cdn-icons-png.flaticon.com/512/561/561127.png"
+					alt="Contact"
+				/>
+				<span>Contact</span>
+			</div>
+
+			<div class="icon" id="mycomputer-icon">
+				<img
+					src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png"
+					alt="My Computer"
+				/>
+				<span>My Computer</span>
+			</div>
+
+			<div class="icon" id="cmd-icon">
+				<img src="img/cmd.png" alt="Command Prompt" />
+				<span>Command Prompt</span>
+			</div>
+
+			<!-- About Window -->
+			<div class="window" id="about-window">
+				<div class="title-bar">
+					<div class="title-bar-text">About Me</div>
+					<div class="title-bar-controls">
+						<button aria-label="Close" class="close-btn"></button>
+					</div>
+				</div>
+				<div class="window-body">
+					<p><strong>Lukas Stibor</strong></p>
+					<p>hello world</p>
+					<p>i like to have fun</p>
+				</div>
+			</div>
+
+			<!-- Projects (Full-Screen Browser) -->
+			<div class="window fullscreen" id="projects-window">
+				<div class="title-bar">
+					<div class="title-bar-text">Internet Explorer</div>
+					<div class="title-bar-controls">
+						<button aria-label="Close" class="close-btn"></button>
+					</div>
+				</div>
+				<iframe src="list/index.html" title="Projects"></iframe>
+			</div>
+
+			<!-- Contact Window -->
+			<div class="window" id="contact-window">
+				<div class="title-bar">
+					<div class="title-bar-text">Contact</div>
+					<div class="title-bar-controls">
+						<button aria-label="Close" class="close-btn"></button>
+					</div>
+				</div>
+				<div class="window-body message-box">
+					<p>Would you like to contact me?</p>
+					<a href="https://cz.linkedin.com/" target="_blank"
+						><button>Yes</button></a
+					>
+					<button id="cancel-contact">No : (</button>
+				</div>
+			</div>
+
+			<!-- My Computer -->
+			<div class="window" id="mycomputer-window">
+				<div class="title-bar">
+					<div class="title-bar-text">My Computer</div>
+					<div class="title-bar-controls">
+						<button aria-label="Close" class="close-btn"></button>
+					</div>
+				</div>
+				<div class="window-body" style="padding: 0">
+					<div
+						class="field-row"
+						style="
+							background: #c0c0c0;
+							padding: 4px 8px;
+							border-bottom: 2px solid #808080;
+						"
+					>
+						<button class="button" id="mc-back" disabled>Back</button>
+						<button class="button" id="mc-forward" disabled>Forward</button>
+						<span style="flex: 1"></span>
+						<span id="mc-path">C:\</span>
+					</div>
+					<div style="display: flex; height: 340px">
+						<div
+							style="
+								width: 180px;
+								background: #fff;
+								border-right: 2px solid #808080;
+								overflow: auto;
+							"
+						>
+							<ul class="tree-view" id="mc-tree">
+								<li>
+									<span class="folder" data-path="">C:\</span>
+									<ul>
+										<li>
+											<span class="folder" data-path="Documents"
+												>Documents</span
+											>
+										</li>
+										<li>
+											<span class="folder" data-path="Pictures">Pictures</span>
+										</li>
+										<li>
+											<span class="folder" data-path="Programs">Programs</span>
+										</li>
+										<li><span class="folder" data-path="Games">Games</span></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+						<div
+							style="flex: 1; overflow: auto; background: #fff"
+							id="mc-files"
+						>
+							<p style="padding: 1rem; color: #666">
+								Select a folder on the left.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- COMMAND PROMPT WINDOW -->
+			<div class="window" id="cmd-window">
+				<div class="title-bar">
+					<div class="title-bar-text">C:\WINDOWS\SYSTEM32\cmd.exe</div>
+					<div class="title-bar-controls">
+						<button aria-label="Close" class="close-btn"></button>
+					</div>
+				</div>
+				<div
+					class="window-body"
+					style="padding: 0; height: 300px; background: black"
+				>
+					<div id="cmd-output"></div>
+					<div class="cmd-line" style="padding: 8px">
+						<span id="cmd-prompt">C:\></span>
+						<input type="text" id="cmd-input" autofocus />
+						<span class="cmd-cursor" id="cmd-cursor"></span>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<div class="taskbar">
+			<div class="start-button">
+				<img src="img/w.png" width="16" height="16" alt="Start" />
+				Start
+			</div>
+			<div class="clock" id="clock"></div>
+		</div>
+
+		<!-- SCREENSAVER: 3D Pipes -->
+		<div id="screensaver">
+			<canvas id="pipes-canvas"></canvas>
+		</div>
+
+		<!-- AUTHENTIC BSOD -->
+		<div id="bsod">
+			<span style="font-size: 18px"
+				>A fatal exception 0E has occurred at 0028:C0011E36 in VXD VMM(01) +
+				00010E36.</span
+			>
+
+			The current application will be terminated. * Press any key to terminate
+			the current application. * Press CTRL+ALT+DEL again to restart your
+			computer. You will lose any unsaved information in all applications. Press
+			any key to continue
+			<span style="animation: blink 1s step-end infinite">_</span>
+
+			<span style="font-size: 12px">
+				*** STOP: 0x0000001E (0xC0000005,0xC0011E36,0x00000000,0x00000000)
+			</span>
+
+			<br /><br />
+			<small style="color: #aaa"
+				>Just kidding! Move your mouse to return :)</small
+			>
+		</div>
     <script src="script.js"></script>
-</body>
+	</body>
 </html>

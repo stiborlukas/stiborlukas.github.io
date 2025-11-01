@@ -1,0 +1,224 @@
+body {
+	font-family: "MS Sans Serif", sans-serif;
+	background: #c0c0c0;
+	margin: 0;
+	padding: 16px;
+}
+
+.window {
+	width: 300px;
+	background: #c0c0c0;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+	margin: 0 auto;
+}
+
+.title-bar {
+	background: linear-gradient(to right, navy, #1084d0);
+	color: white;
+	padding: 2px 4px;
+	font-weight: bold;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.title-bar-text {
+	font-size: 11px;
+}
+
+.title-bar-controls button {
+	width: 16px;
+	height: 14px;
+	background: #c0c0c0;
+	border: 1px solid #fff;
+	box-shadow: inset 1px 1px #dfdfdf, inset -1px -1px #808080;
+	margin-left: 2px;
+	font-size: 9px;
+	line-height: 10px;
+	cursor: pointer;
+}
+
+.status-bar {
+	background: #c0c0c0;
+	border-top: 1px solid #808080;
+	padding: 2px 6px;
+	font-size: 11px;
+	color: black;
+}
+
+.game-container {
+	padding: 8px;
+	text-align: center;
+}
+
+.top-bar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 8px;
+	padding: 4px;
+	border: 2px inset #dfdfdf;
+	background: #c0c0c0;
+}
+
+.counter {
+	width: 50px;
+	height: 28px;
+	background: black;
+	color: #ff0000;
+	font-family: "DS-Digital", "Courier New", monospace;
+	font-size: 22px;
+	text-align: center;
+	line-height: 28px;
+	border: 2px inset #808080;
+	letter-spacing: 1px;
+}
+
+.face {
+	width: 32px;
+	height: 32px;
+	background: #c0c0c0;
+	border: 2px outset #dfdfdf;
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+	font-size: 0;
+}
+.face:active {
+	border: 2px inset #dfdfdf;
+}
+.face:hover {
+	background: #d0d0d0;
+}
+
+/* Eyes (shared) */
+.face::before,
+.face::after {
+	content: "";
+	position: absolute;
+	background: black;
+}
+
+/* Eyes – 3px dots */
+.face::before {
+	width: 3px;
+	height: 3px;
+	top: 10px;
+	left: 8px;
+	box-shadow: 13px 0 0 black;
+}
+
+/* Happy mouth */
+.face.happy::after {
+	width: 13px;
+	height: 6px;
+	border-bottom: 3px solid black;
+	border-radius: 0 0 10px 10px;
+	top: 17px;
+	left: 9px;
+}
+
+/* Dead face – X eyes + open mouth */
+.face.dead::after {
+	width: 4px;
+	height: 4px;
+	background: black;
+	top: 17px;
+	left: 8px;
+	box-shadow: 13px 0 0 black, -4px 4px 0 black, 17px 4px 0 black;
+}
+
+/* Cool face – sunglasses */
+.face.cool::after {
+	width: 18px;
+	height: 4px;
+	background: black;
+	top: 13px;
+	left: 7px;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(9, 24px);
+	grid-template-rows: repeat(9, 24px);
+	gap: 2px;
+	justify-content: center;
+	border: 3px inset #dfdfdf;
+	background: #c0c0c0;
+	padding: 4px;
+}
+
+.cell {
+	width: 24px;
+	height: 24px;
+	border: 2px outset #fff;
+	background: #c0c0c0;
+	font-weight: bold;
+	font-size: 14px;
+	text-align: center;
+	line-height: 24px;
+	cursor: default;
+	user-select: none;
+}
+
+.cell.open {
+	border: 2px inset #808080;
+	background: #c0c0c0;
+}
+
+.cell.flag {
+	border: 2px inset #dfdfdf;
+	position: relative;
+}
+.cell.flag::after {
+	content: "";
+	position: absolute;
+	top: 3px;
+	left: 8px;
+	width: 0;
+	height: 0;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-bottom: 12px solid red;
+}
+
+.cell.mine {
+	border: 2px inset #808080;
+	background: #c0c0c0;
+	position: relative;
+}
+.cell.mine::after {
+	content: "";
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 14px;
+	height: 14px;
+	background: radial-gradient(circle, black 50%, gray 100%);
+	border-radius: 50%;
+}
+
+/* Number colors */
+.cell.num1 {
+	color: blue;
+}
+.cell.num2 {
+	color: green;
+}
+.cell.num3 {
+	color: red;
+}
+.cell.num4 {
+	color: navy;
+}
+.cell.num5 {
+	color: maroon;
+}
+.cell.num6 {
+	color: teal;
+}
+.cell.num7 {
+	color: black;
+}
+.cell.num8 {
+	color: gray;
+}

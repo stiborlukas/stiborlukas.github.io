@@ -41,8 +41,7 @@ const projects = {
     `,
     tech: ["C programming", "Makefile", "File I/O", "UNIX command-line tools"],
     images: [
-      "images/mytar/0.jpg",
-      "images/mytar/1.jpg"
+      
     ],
     links: {
       github: "https://github.com/stiborlukas/tar_implementation"
@@ -93,9 +92,9 @@ const projects = {
     `,
     tech: ["C#", ".NET", "WPF", "Object-Oriented Programming", "Simulation"],
     images: [
-      "images/boids/0.jpg",
-      "images/boids/1.jpg",
-      "images/boids/2.jpg"
+      "images/boids/0.png",
+      "images/boids/1.png",
+      "images/boids/2.png"
     ],
     links: {
       github: "https://github.com/stiborlukas/boids"
@@ -151,9 +150,9 @@ python client.py
     `,
     tech: ["Python", "socket", "threading", "CustomTkinter", "Networking"],
     images: [
-      "images/chatapp/0.jpg",
-      "images/chatapp/1.jpg",
-      "images/chatapp/2.jpg"
+      "images/chatapp/0.png",
+      "images/chatapp/1.png",
+      "images/chatapp/2.png"
     ],
     links: {
       github: "https://github.com/stiborlukas/Client-Server-Chat-Application"

@@ -1,33 +1,247 @@
-
+/* *{
+    cursor: url('kitty.cur'), auto;
+} */
 body {
-    margin: 0;
-    height: 100vh;
-    display: grid;
-    place-content: center;
-    font-family: 'Bebas Neue';
+	margin: 0;
+	background: #008080;
+	font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+	height: 100vh;
+	color: white;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	animation: fadeIn 1s ease forwards;
 }
 
-h1 {
-    font-size: 13em;
-    cursor:pointer;
-    line-height: 0;
+td {
+	color: black;
+}
+span.folder {
+	color: black;
 }
 
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
 
-.cursor {
-    position: fixed;
-    left: 0;
-    top: 0;
-    border-radius: 50%;
-    pointer-events: none;
-    transition: transform .1s;
-    background-image: url("cat.png");
-    background-size: contain; 
-    background-position: center; 
-    background-repeat: no-repeat; 
-    width: 100px; 
-    height: 100px;
-    z-index: 999;
-    position: fixed; 
-    pointer-events: none; 
+main {
+	flex: 1;
+	padding: 40px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 40px;
+	align-content: flex-start;
+	position: relative;
+}
+
+.icon {
+	width: 80px;
+	text-align: center;
+	cursor: pointer;
+	color: white;
+	transition: transform 0.1s;
+}
+.icon:hover {
+	transform: scale(1.1);
+}
+.icon img {
+	width: 48px;
+	height: 48px;
+	image-rendering: pixelated;
+}
+.icon span {
+	display: block;
+	margin-top: 6px;
+	background: rgba(0, 0, 128, 0.4);
+	padding: 2px 4px;
+	border-radius: 2px;
+}
+
+.taskbar {
+	height: 32px;
+	background: silver;
+	border-top: 2px solid #fff;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 2px 6px;
+	z-index: 100;
+}
+
+.start-button {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	background: #c0c0c0;
+	border: 2px outset #fff;
+	padding: 2px 6px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.clock {
+	font-size: 0.8rem;
+	background: #c0c0c0;
+	border: 2px inset #fff;
+	padding: 2px 6px;
+	color: black;
+}
+
+.window {
+	position: absolute;
+	top: 100px;
+	left: 100px;
+	width: 400px;
+	background: #c0c0c0;
+	box-shadow: 4px 4px rgba(0, 0, 0, 0.4);
+	display: none;
+	z-index: 1;
+}
+
+.window.active {
+	display: block;
+	animation: pop 0.2s ease;
+}
+
+@keyframes pop {
+	from {
+		transform: scale(0.95);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+iframe {
+	width: 100%;
+	height: calc(100% - 30px);
+	border: none;
+	background: white;
+}
+
+.window.fullscreen {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: calc(100vh - 32px);
+	z-index: 99;
+	box-shadow: none;
+}
+
+.message-box {
+	padding: 10px;
+	text-align: center;
+}
+
+.file-browser {
+	width: 720px;
+	height: 520px;
+	top: 80px;
+	left: 120px;
+}
+
+/* SCREENSAVER */
+#screensaver,
+#bsod {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 9999;
+	display: none;
+}
+
+#screensaver {
+	background: black;
+}
+canvas {
+	display: block;
+}
+
+/* AUTHENTIC BSOD - NO COMIC SANS */
+#bsod {
+	background: #0000aa;
+	color: white;
+	font-family: "Courier New", monospace;
+	font-size: 14px;
+	padding: 40px;
+	line-height: 1.6;
+	text-align: left;
+	white-space: pre;
+}
+
+#bsod::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: repeating-linear-gradient(
+		0deg,
+		rgba(0, 0, 0, 0.15),
+		rgba(0, 0, 0, 0.15) 1px,
+		transparent 1px,
+		transparent 2px
+	);
+	pointer-events: none;
+}
+
+@keyframes blink {
+	50% {
+		opacity: 0;
+	}
+}
+
+/* COMMAND PROMPT */
+#cmd-output {
+	color: #0f0;
+	font-family: "Courier New", monospace;
+	padding: 8px;
+	height: 260px;
+	overflow-y: auto;
+	background: black;
+}
+#cmd-output::-webkit-scrollbar {
+	width: 12px;
+}
+#cmd-output::-webkit-scrollbar-track {
+	background: #000;
+}
+#cmd-output::-webkit-scrollbar-thumb {
+	background: #0f0;
+	border: 2px solid #000;
+}
+
+#cmd-input {
+	background: black;
+	color: #0f0;
+	border: none;
+	outline: none;
+	font-family: "Courier New", monospace;
+	font-size: 14px;
+	flex: 1;
+	padding: 0 4px;
+}
+
+.cmd-line {
+	display: flex;
+	align-items: center;
+}
+
+.cmd-cursor {
+	display: inline-block;
+	width: 8px;
+	height: 16px;
+	background: #0f0;
+	margin-left: 2px;
+	animation: blink 1s step-end infinite;
 }
