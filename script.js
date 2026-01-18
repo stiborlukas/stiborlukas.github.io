@@ -178,12 +178,12 @@ cmdInput.addEventListener("keydown", (e) => {
 // === MY COMPUTER DATA ===
 const mcContent = {
 	Documents: [
-		{ name: "Resume.pdf", type: "pdf", url: "docs/Resume.pdf" },
-		{ name: "Cover Letter.docx", type: "doc", url: "docs/Cover.docx" },
+		{ name: "CV_Stibor_en.pdf", type: "pdf", url: "docs/CV_Stibor_en.pdf" },
+		{ name: "CV_Stibor_cz.pdf", type: "pdf", url: "docs/CV_Stibor_cz.pdf" },
 	],
 	Pictures: [
 		{ name: "vacation.jpg", type: "img", url: "img/vacation.jpg" },
-		{ name: "portfolio.png", type: "img", url: "img/portfolio.png" },
+		{ name: "bike.jpg", type: "img", url: "img/bike.jpg" },
 	],
 	Programs: [{ name: "cmd.exe", type: "app", run: openCmd }],
 	Games: [
