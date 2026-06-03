@@ -172,6 +172,56 @@
 					</div>
 				</div>
 			</div>
+
+			<!-- no as a service -->
+
+			<!-- Desktop Icon -->
+			<div class="icon" id="naas-icon" style="top:200px;left:10px;">
+				<img src="img/cmd.png" alt="NaaS Terminal" />
+				<span>NaaS Terminal</span>
+			</div>
+
+			<!-- NaaS Terminal Window -->
+			<div class="window" id="naas-window" style="display:none;top:60px;left:120px;width:560px;">
+			<div class="title-bar">
+				<div class="title-bar-text">No-as-a-Service Terminal v4.2.0</div>
+				<div class="title-bar-controls">
+				<button aria-label="Close" class="close-btn" data-target="naas-window"></button>
+				</div>
+			</div>
+			<div class="window-body" style="padding:0;background:#000;display:flex;flex-direction:column;height:360px;">
+
+				<!-- Output -->
+				<div id="naas-output" style="
+				flex:1;overflow-y:auto;padding:8px 10px 4px;
+				font-family:'Courier New',Courier,monospace;font-size:13px;
+				color:#c0c0c0;line-height:1.6;word-break:break-word;
+				"></div>
+
+				<!-- Suggestion buttons -->
+				<div id="naas-suggestions" style="
+				padding:3px 8px 3px;display:flex;flex-wrap:wrap;gap:4px;
+				border-top:1px solid #333;background:#111;flex-shrink:0;
+				"></div>
+
+				<!-- Input row -->
+				<div style="display:flex;align-items:center;padding:5px 10px 7px;flex-shrink:0;border-top:1px solid #333;background:#000;">
+				<span id="naas-prompt" style="
+					font-family:'Courier New',Courier,monospace;font-size:13px;
+					color:#c0c0c0;white-space:nowrap;margin-right:4px;user-select:none;
+				">C:\&gt;</span>
+				<input type="text" id="naas-input" autocomplete="off" autocorrect="off"
+					autocapitalize="off" spellcheck="false"
+					style="
+					flex:1;background:transparent;border:none;outline:none;
+					font-family:'Courier New',Courier,monospace;font-size:13px;
+					color:#fff;caret-color:#fff;min-width:0;
+					"
+				/>
+				</div>
+
+			</div>
+			</div>
 		</main>
 
 		<div class="taskbar">

@@ -432,3 +432,189 @@ document.addEventListener("touchstart", exitOnEvent, { passive: true });
 window.addEventListener("load", () => {
 	resetInactivityTimer();
 });
+
+
+// ============================================================
+// NaaS Terminal - no as a service, because sometimes you just want to be denied.
+// ============================================================
+(function () {
+
+  const icon    = document.getElementById('naas-icon');
+  const win     = document.getElementById('naas-window');
+  const output  = document.getElementById('naas-output');
+  const inputEl = document.getElementById('naas-input');
+  const sugRow  = document.getElementById('naas-suggestions');
+
+  if (!icon || !win || !output || !inputEl) return;
+
+  // ── Open / close ─────────────────────────────────────────
+  icon.addEventListener('dblclick', () => {
+    win.style.display = 'block';
+    makeDraggable(win);
+    inputEl.focus();
+    if (!booted) boot();
+  });
+
+  // Re-use your existing close-btn pattern
+  win.querySelector('.close-btn').addEventListener('click', () => {
+    win.style.display = 'none';
+  });
+
+  // ── Drag (mirrors your existing windows) ─────────────────
+  function makeDraggable(el) {
+    const bar = el.querySelector('.title-bar');
+    if (bar._draggable) return;
+    bar._draggable = true;
+    let ox, oy;
+    bar.addEventListener('mousedown', e => {
+      ox = e.clientX - el.offsetLeft;
+      oy = e.clientY - el.offsetTop;
+      const move = ev => { el.style.left = (ev.clientX - ox) + 'px'; el.style.top = (ev.clientY - oy) + 'px'; };
+      const up   = () => { document.removeEventListener('mousemove', move); document.removeEventListener('mouseup', up); };
+      document.addEventListener('mousemove', move);
+      document.addEventListener('mouseup', up);
+    });
+  }
+
+  // ── Helpers ───────────────────────────────────────────────
+  function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function line(html, color) {
+    const el = document.createElement('div');
+    el.style.cssText = 'font-family:"Courier New",Courier,monospace;font-size:13px;line-height:1.6;white-space:pre-wrap;word-break:break-word;';
+    el.style.color   = color || '#c0c0c0';
+    el.innerHTML     = html;
+    output.appendChild(el);
+    output.scrollTop = output.scrollHeight;
+    return el;
+  }
+  function blank() { line('\u00a0'); }
+  function ts()    { return new Date().toTimeString().slice(0,8); }
+
+  // ── Suggestions ───────────────────────────────────────────
+  ['Can I get a raise?','Leave work early?','Skip the meeting?',
+   'Will you date me?','Free pizza today?','Can I have a refund?'
+  ].forEach(txt => {
+    const b = document.createElement('button');
+    b.textContent = txt;
+    b.style.cssText = 'font-size:11px;padding:1px 6px;cursor:pointer;';
+    b.addEventListener('click', () => { inputEl.value = txt; inputEl.focus(); });
+    sugRow.appendChild(b);
+  });
+
+  // ── Boot sequence ─────────────────────────────────────────
+  let booted = false;
+  function boot() {
+    booted = true;
+    line('Microsoft(R) Windows 98', '#fff');
+    line('   (C)Copyright Microsoft Corp 1981-1999.', '#c0c0c0');
+    blank();
+    line('<span style="color:#00ff00">[  OK  ]</span> denial.service loaded');
+    line('<span style="color:#00ff00">[  OK  ]</span> /dev/no mounted  (naas.isalman.dev)');
+    line('<span style="color:#ffff00">[ WARN ]</span> optimism module not found');
+    line('<span style="color:#ff4444">[ DENY ]</span> hope: segmentation fault (core dumped)');
+    blank();
+    line('No-as-a-Service v4.2.0 — type a request, get denied.', '#c0c0c0');
+    line('Try: HELP  DIR  CLS  WHOAMI', '#555');
+    blank();
+  }
+
+  // ── Special commands ──────────────────────────────────────
+  const specials = {
+    cls:    () => { output.innerHTML = ''; },
+    help:   () => { line('HELP  CLS  DIR  WHOAMI  EXIT  SUDO'); line('All roads lead to no.', '#555'); },
+    dir:    () => {
+      line(' Volume in drive C is NO');
+      line(' Volume Serial Number is DEAD-BEEF');
+      blank();
+      line(' Directory of C:\\');
+      blank();
+      line('HOPE        &lt;DIR&gt;   [DELETED]        ', '#555');
+      line('RAISE       &lt;DIR&gt;   [ACCESS DENIED]  ', '#555');
+      line('VACATION    &lt;DIR&gt;   [ACCESS DENIED]  ', '#555');
+      line('NO      EXE   99,999 bytes', '#c0c0c0');
+      blank();
+      line('       1 File(s)   99,999 bytes');
+      line('       0 Dir(s)    0 bytes free');
+    },
+    whoami: () => { line('rejected_user', '#0f0'); },
+    exit:   () => { line("You can't leave. The no follows you home.", '#f44'); },
+    quit:   () => { line("You can't leave. The no follows you home.", '#f44'); },
+    sudo:   () => { line('sudo: command not found. Also still no.', '#f44'); },
+    yes:    () => { line("'yes' is not a recognised command.", '#f44'); },
+  };
+
+  // ── State ─────────────────────────────────────────────────
+  let busy = false, rejects = 0;
+  const hist = []; let hi = -1;
+
+  // ── Main handler ──────────────────────────────────────────
+  async function handle() {
+    if (busy) return;
+    const raw = inputEl.value.trim();
+    if (!raw) return;
+    inputEl.value = '';
+    hist.unshift(raw); hi = -1;
+
+    line('C:\\&gt; ' + esc(raw), '#fff');
+
+    const lower = raw.toLowerCase();
+    for (const [cmd, fn] of Object.entries(specials)) {
+      if (lower === cmd || lower.startsWith(cmd + ' ')) { fn(); blank(); return; }
+    }
+
+    busy = true; inputEl.disabled = true;
+    const spins = ['|','/','-','\\'];
+    let si = 0, prog = 0;
+    const ldr = line('Querying /dev/no... 0%', '#555');
+    const iv = setInterval(() => {
+      si = (si + 1) % 4;
+      prog = Math.min(prog + Math.floor(Math.random() * 14) + 4, 99);
+      ldr.textContent = spins[si] + ' Contacting NaaS daemon... ' + prog + '%';
+    }, 90);
+
+    try {
+      const data = await fetch('https://naas.isalman.dev/no').then(r => r.json());
+      clearInterval(iv); ldr.remove();
+
+      rejects++;
+      const reason = data.reason || data.message || JSON.stringify(data);
+      const code   = Math.floor(Math.random() * 200) + 1;
+      const pad    = String(rejects).padStart(4,'0');
+      const hints  = [
+        'try sudo (also no)',
+        'rm -rf ./expectations might help',
+        'file a ticket at /dev/null',
+        'chmod 777 ./hope won\'t work',
+        'git rebase --onto reality',
+      ];
+
+      line('[' + ts() + '] naas-daemon: verdict \u2192 DENIED', '#f44');
+      blank();
+      line('\u2554\u2550\u2550 REJECTION NOTICE #' + pad + ' \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557', '#f44');
+      line('  ' + esc(reason), '#ff6');
+      line('\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255d', '#f44');
+      blank();
+      line('Exit code: ' + code + '  (ERRNO_NO_' + code + ')', '#555');
+      line('Hint: ' + hints[Math.floor(Math.random() * hints.length)], '#555');
+      blank();
+
+    } catch(e) {
+      clearInterval(iv); ldr.remove();
+      line('ERROR: Connection refused \u2014 even the API said no.', '#f44');
+      line('Details: ' + esc(e.message), '#555');
+      blank();
+    }
+
+    busy = false; inputEl.disabled = false; inputEl.focus();
+  }
+
+  inputEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { handle(); return; }
+    if (e.key === 'ArrowUp')   { e.preventDefault(); hi = Math.min(hi+1, hist.length-1); inputEl.value = hist[hi] || ''; }
+    if (e.key === 'ArrowDown') { e.preventDefault(); hi = Math.max(hi-1, -1); inputEl.value = hi >= 0 ? hist[hi] : ''; }
+  });
+
+  win.addEventListener('click', () => inputEl.focus());
+
+})();
