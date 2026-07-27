@@ -209,5 +209,84 @@ Space - Handbrake (drift)</code></pre>
     links: {
       download: "?"
     }
+  },
+
+  tripline: {
+    title: "Tripline - Multi-Day Bikepacking Trip Visualizer",
+    description: "A browser-based tool that merges daily GPX files from a multi-day bikepacking trip into one continuous route, elevation profile, and set of trip statistics - plus a shareable export card.",
+    overview: `
+      <p><strong>Tripline</strong> solves a problem every multi-day bikepacker runs into: a GPS device produces
+      one GPX file per day, and most tools treat each file as a separate activity. A four-day trip becomes four
+      disconnected rides with no single view of the trip as a whole. Tripline merges them entirely client-side
+      into one continuous route, one elevation profile, and one set of trip-wide statistics - no server, no
+      upload, no account required.</p>
+
+      <p>The project grew out of a real gap: after finishing a first bikepacking trip, there was no
+      straightforward way to turn several days of GPX files into one shareable summary of the trip - so this
+      became a small tool to fix that.</p>
+
+      <h3>Features</h3>
+      <ul>
+        <li>Drag-and-drop import of multiple GPX files, auto-sorted by recorded start time (with manual
+        reordering available for files missing reliable timestamps).</li>
+        <li>Interactive Leaflet map with each day drawn in its own color and a numbered start marker.</li>
+        <li>One continuous elevation profile spanning the whole trip by cumulative distance, rather than a
+        separate chart per day.</li>
+        <li>Trip statistics grouped by category:
+          <ul>
+            <li><strong>Route</strong> - distance, days, longest day, N-S / E-W span</li>
+            <li><strong>Elevation</strong> - gain, loss, highest/lowest point, net elevation change, longest
+            climb and biggest climb tracked as two separate stats (often two different days entirely)</li>
+            <li><strong>Time</strong> - moving time, elapsed time, moving %, longest stop</li>
+            <li><strong>Speed</strong> - average (moving and total), max speed</li>
+          </ul>
+        </li>
+        <li>Per-day breakdown table with manual reorder/remove.</li>
+        <li>A shareable summary card - route, key stats, elevation silhouette - exportable as PNG in several
+        formats (Instagram Story, Post, Square, landscape social, or print-ready A4/A5).</li>
+      </ul>
+
+      <h3>Technical Highlights</h3>
+      <ul>
+        <li>Elevation gain/loss uses a hysteresis algorithm over a smoothing window sized from the GPX file's
+        actual recording interval (not point count), tuned to reject sensor/GPS noise while preserving real
+        terrain texture - validated against a synthetic ground-truth elevation profile before shipping.</li>
+        <li>Climb detection reuses the same hysteresis walk to isolate individual contiguous climbing segments,
+        so "longest climb" (by distance) and "biggest climb" (by meters gained) are tracked independently.</li>
+        <li>The shareable card's map is not a screenshot of the live Leaflet map - it's hand-drawn onto a
+        <code>&lt;canvas&gt;</code> using the same Web Mercator tile math real map servers use, since
+        <code>html2canvas</code> cannot reliably capture a live, CSS-transformed Leaflet view (async tile
+        loading, transform-positioned panes).</li>
+        <li>Card export formats reflow the actual layout via flexbox rather than just cropping an aspect
+        ratio - the map claims whatever vertical space is left after the title, stats, and elevation chart,
+        and a CSS container query (not a viewport media query) handles the stat grid's column count, since a
+        narrow Story-format card can exist on a wide desktop screen.</li>
+        <li>Defensive engineering born from real bugs: all array min/max operations use a plain loop rather
+        than <code>Math.max(...array)</code>, which throws a stack-size error on the point counts a multi-day,
+        1Hz-recorded GPX file can easily produce.</li>
+      </ul>
+
+      <h3>Stack</h3>
+      <p>Plain HTML/CSS/JavaScript - no framework, no build step, no backend. Leaflet for the interactive map,
+      html2canvas for PNG export, hand-built SVG for the elevation chart, and the Canvas API for the
+      export card's map.</p>
+    `,
+    tech: [
+      "JavaScript",
+      "HTML/CSS",
+      "Leaflet.js",
+      "Canvas API",
+      "html2canvas",
+      "GPX / GIS data processing",
+      "Web Mercator projection"
+    ],
+    images: [
+      "images/tripline/0.png",
+      "images/tripline/1.png",
+    ],
+    links: {
+      github: "https://github.com/stiborlukas/tripline",
+      demo: "https://stiborlukas.github.io/tripline/"
+    }
   }
 };

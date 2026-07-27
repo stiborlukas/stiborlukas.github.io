@@ -18,7 +18,8 @@ function applyProjectColors() {
     mytar: "linear-gradient(135deg, #ece9e6, #ffffff)",
     boids: "linear-gradient(135deg, #e0f7fa, #b2ebf2)",
     racing_game: "linear-gradient(135deg, #fff3e0, #ffe0b2)",
-    chatapp: "linear-gradient(135deg, #fff3e0, #ffe0b2)"
+    chatapp: "linear-gradient(135deg, #fff3e0, #ffe0b2)",
+    tripline: "linear-gradient(135deg, #f0f0f0, #d0d0d0)"
   };
 
   if (heroGradients[projectId]) {
@@ -31,6 +32,7 @@ function applyProjectColors() {
     boids: "linear-gradient(90deg, #0060cc, #00c6ff)",
     racing_game: "linear-gradient(90deg, #ff6b00, #ffd700)",
     chatapp: "linear-gradient(90deg, #222, #0078ff)",
+    tripline: "linear-gradient(90deg, #ff6b00, #0078ff)"
   };
 
   if (headlineGradients[projectId]) {
@@ -47,6 +49,7 @@ function applyProjectColors() {
     boids: { primary: "#00c6ff", glow: "#0060cc" },
     racing_game: { primary: "#ffd700", glow: "#ff6b00" },
     chatapp: { primary: "#0078ff", glow: "#00aaff" },
+    tripline: { primary: "#00c6ff", glow: "#0078ff" }
   };
 
   if (themeColors[projectId]) {
