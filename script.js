@@ -17,6 +17,8 @@ const icons = {
 	contact: document.getElementById("contact-icon"),
 	mycomputer: document.getElementById("mycomputer-icon"),
 	cmd: document.getElementById("cmd-icon"),
+	pomodoro: document.getElementById("pomodoro-icon"),
+	tripline: document.getElementById("tripline-icon"),
 };
 const windows = {
 	about: document.getElementById("about-window"),
@@ -24,6 +26,8 @@ const windows = {
 	contact: document.getElementById("contact-window"),
 	mycomputer: document.getElementById("mycomputer-window"),
 	cmd: document.getElementById("cmd-window"),
+	pomodoro: document.getElementById("pomodoro-window"),
+	tripline: document.getElementById("tripline-window"),
 };
 
 Object.values(windows).forEach(makeDraggable);
@@ -56,6 +60,8 @@ icons.projects.addEventListener("click", () => showWindow("projects"));
 icons.contact.addEventListener("click", () => showWindow("contact"));
 icons.mycomputer.addEventListener("click", () => showWindow("mycomputer"));
 icons.cmd.addEventListener("click", openCmd);
+icons.pomodoro.addEventListener("click", () => showWindow("pomodoro"));
+icons.tripline.addEventListener("click", () => showWindow("tripline"));
 document
 	.getElementById("cancel-contact")
 	.addEventListener("click", () => hideWindow("contact"));
